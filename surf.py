@@ -18,19 +18,19 @@ def process_grib(ptlat,ptlon):
    #today = datetime.datetime.today().strftime("%Y%m%d")
    filename="box_nwps_CG1_%s_0000.grib2"%now.strftime("%Y%m%d")
    
-   if not os.path.isfile(filename):
+   if not os.path.isfile('data/'+filename):
       print("%s does not exist in current directory.\nDownloading now from:"%filename)
       urlbase="https://nomads.ncep.noaa.gov/pub/data/nccf/com/nwps/prod/er.%s/box/00/CG1/"%now.strftime("%Y%m%d")
       url=urlbase+filename
       print(url)
       import wget
-      wget.download(url)
+      wget.download(url,out='data/'+filename)
       print("\nDownload complete.")
    else:
-      print("%s exists, continuing..."%filename)
+      print("data/%s exists, continuing..."%filename)
    
    #filename='box_nwps_CG1_20190207_0600.grib2';
-   grbs=pygrib.open(filename)
+   grbs=pygrib.open('data/'+filename)
    
    ## Determine coordinates for the location I want, exract data, make timeSeries plot.
    ## Block Island Buoy 40.969 N 71.127 W
