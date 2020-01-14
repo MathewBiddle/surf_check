@@ -16,11 +16,12 @@ def process_grib(ptlat,ptlon):
 #   now = datetime.datetime.utcnow().replace(tzinfo=pytz.timezone('UTC')) # in UTC
    now = datetime.datetime.now()
    #today = datetime.datetime.today().strftime("%Y%m%d")
-   filename="box_nwps_CG1_%s_1200.grib2"%now.strftime("%Y%m%d")
+   hr = '06'
+   filename="box_nwps_CG1_%s_%s00.grib2"%(now.strftime("%Y%m%d"),hr)
    
    if not os.path.isfile('data/'+filename):
       print("%s does not exist in current directory.\nDownloading now from:"%filename)
-      urlbase="https://nomads.ncep.noaa.gov/pub/data/nccf/com/nwps/prod/er.%s/box/12/CG1/"%now.strftime("%Y%m%d")
+      urlbase="https://nomads.ncep.noaa.gov/pub/data/nccf/com/nwps/prod/er.%s/box/%s/CG1/"%(now.strftime("%Y%m%d"),hr)
       url=urlbase+filename
       print(url)
       import wget
