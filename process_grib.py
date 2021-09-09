@@ -46,10 +46,10 @@ lon_X=np.abs(lon - (360-71.127))#288.873)
 lon_idx=np.where(lon_X==lon_X.min())
 
 ## Make a map
-if 2==1:
+if 1==1:
    m=Basemap(projection='mill',lat_ts=10,llcrnrlon=lon.min(), \
-     urcrnrlon=lon.max(),llcrnrlat=lat.min(),urcrnrlat=lat.max(), \
-     resolution='f')
+             urcrnrlon=lon.max(),llcrnrlat=lat.min(),urcrnrlat=lat.max(), \
+             resolution='f')
 
    x, y = m(lon,lat)
    cs = m.pcolormesh(x,y,data,shading='flat',cmap=plt.cm.jet)
@@ -64,19 +64,18 @@ if 2==1:
    plt.colorbar(cs,orientation='vertical')
    plt.title('Significant Height of Swell Waves from NWPS on %s'%time)
    plt.show()
+elif 2 == 1:## grab point data
+   ptdata=[]
+   date=[]
+   for grb in grbs:
+      if grb.parameterName == 'Significant height of swell waves':
+         ptdata.append(grb.values[lon_idx][lat_idx])
+         date.append(datetime.datetime.fromisoformat(str(grb.validDate)))
 
-## grab point data
-ptdata=[]
-date=[]
-for grb in grbs:
-   if grb.parameterName=='Significant height of swell waves':
-      ptdata.append(grb.values[lon_idx][lat_idx])
-      date.append(datetime.datetime.fromisoformat(str(grb.validDate)))
-
-df=pd.DataFrame({"swellH" : ptdata,
-                       "date_utc":date})
-df.date_utc=pd.to_datetime(df.date_utc,utc=True)
-df.set_index('date_utc',inplace=True)
-df.plot()
-plt.show()
+   df = pd.DataFrame({"swellH" : ptdata,
+                 "date_utc":date})
+   df.date_utc=pd.to_datetime(df.date_utc,utc=True)
+   df.set_index('date_utc',inplace=True)
+   df.plot()
+   plt.show()
 
