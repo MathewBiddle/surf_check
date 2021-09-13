@@ -188,7 +188,8 @@ def get_ww3_erddap(duration,lat,lon):
     print("Getting WW3 data from PacIOOS ERDDAP.") #
     # block island 41, 289
     # wallops island 37.5 284.5
-    url = ('https://pae-paha.pacioos.hawaii.edu/erddap/griddap/ww3_global.csvp?shgt[(last-1000000):(last)][(0.0)][(%s)][(%s)]' % (lat,lon))
+    url = ('https://pae-paha.pacioos.hawaii.edu/erddap/griddap/ww3_global.csvp?shgt[(last-3000000):(last)][(0.0)][(%s)][(%s)]' % (lat,lon))
+    print(url)
     # https://pae-paha.pacioos.hawaii.edu/erddap/griddap/ww3_global.graph?Thgt[(2020-02-12T09:00:00Z)][(0.0)][(41.25):(41.75)][(288.75):(289.25)]&.draw=surface&.vars=longitude%7Clatitude%7CThgt&.colorBar=%7C%7C%7C%7C%7C&.bgColor=0xffccccff
     # url = 'http://oos.soest.hawaii.edu/erddap/griddap/NWW3_Global_Best.csv?shgt%%5B(%s):1:(last)%%5D%%5B(0.0):1:(0.0)%%5D%%5B(36.0):1:(48.0)%%5D%%5B(270.0):1:(314.0)%%5D' % now
     #url = 'https://coastwatch.pfeg.noaa.gov/erddap/griddap/NWW3_Global_Best.csvp?shgt[(%s):1:(last)][(0.0):1:(0.0)][(41.0):1:(41.0)][(289.0):1:(289.0)]' % now
@@ -232,7 +233,7 @@ data.rename_axis('date_est', inplace=True)
 # print(data.loc["20190209":"20190211"])
 # data.to_csv('test.csv')
 print("Making plot...")
-data.plot(style=['.', '-'],
+data.plot(style=['.', '.'],
     ylabel='Swell Height (m)',
     title='Buoy: %s' % buoy_id)
 # plt.show()
