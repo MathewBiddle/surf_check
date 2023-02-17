@@ -12,7 +12,7 @@ on:
 
 jobs:
   scheduled:
-    if: ${{ github.repository_owner }} == 'ioos' # only run if ioos owns repo
+    if: ${{ github.repository_owner == 'ioos' }}# only run if ioos owns repo
     runs-on: ubuntu-20.04
     steps:
     - name: Checkout repo
