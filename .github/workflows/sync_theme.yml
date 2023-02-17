@@ -14,8 +14,6 @@ jobs:
     steps:
     - name: Checkout repo
       uses: actions/checkout@v3
-      with:
-        ref: gh-pages
  
     - name: submodule checkout
       run: |
